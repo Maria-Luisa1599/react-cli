@@ -2,6 +2,9 @@ import React from 'react';
 import logo from "../../assets/logo-dio.png";
 import Button from '../Button';
 import { useNavigate } from "react-router-dom";
+
+import { IHeader } from "./types"
+
 import { 
   Container,
   Row,
@@ -15,7 +18,7 @@ import {
 
 
 
- const Header = ({autenticado}) => {
+ const Header = ({autenticado}: IHeader) => {
    const navigate = useNavigate();
 
    const handleSubmitEntrar = () =>{

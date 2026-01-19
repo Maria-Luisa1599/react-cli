@@ -1,6 +1,8 @@
 import { FiThumbsUp } from 'react-icons/fi'
 import React from 'react'
 
+import { ICardProps } from './types'
+
 import { 
   CardContainer,
   ImageBackground,
@@ -12,7 +14,7 @@ import {
 } from './styles'
 
 
- const Card = ({src}) => {
+const Card = ({ src }: ICardProps) => {
   return (
     <CardContainer>
       <ImageBackground src={src}/>

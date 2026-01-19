@@ -12,6 +12,7 @@ import Button from "../../components/Button";
 
 import { MdAccountCircle, MdEmail, MdLock } from 'react-icons/md'
 
+import {ICadastroForm} from "./types"
 
 const schema = yup.object({
     user: yup.string().required('Campo obrigatório.'),
@@ -22,7 +23,7 @@ const schema = yup.object({
 
 const Cadastro = () => {
     const navigate = useNavigate();
-    const { control, handleSubmit, formState: { errors }  } = useForm({
+    const { control, handleSubmit, formState: { errors }  } = useForm<ICadastroForm>({
              resolver: yupResolver(schema),
              mode: 'onChange'
             });
@@ -30,7 +31,7 @@ const Cadastro = () => {
         console.log(errors)
 
 
-        const onSubmit = () => {
+        const onSubmit = (formData:ICadastroForm) => {
             navigate('/feed') 
         }
         

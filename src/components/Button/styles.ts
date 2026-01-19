@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
+import { IButtonStyled } from "./types"
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<IButtonStyled>`
+
     background-color: #565656;
     border: none;
     border-radius: 22px;
@@ -37,6 +39,10 @@ export const ButtonContainer = styled.button`
                 width: calc(100% + 10px);
                 height: calc(100% + 10px);
                 border-radius: 22px;
+            }
+
+            .btnEntrar{
+                margin-right: 10px;
             }
             `}
 

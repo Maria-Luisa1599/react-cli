@@ -9,8 +9,10 @@ import { Input } from "../../components/Inputs";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 
-import { Column, Container, CriarText, EsqueciText, Row, SubtitleLogin, Title, TitleLogin, Wrapper } from "./styles"; 
+import { Column, Container, CriarText, EsqueciText, Row, SubtitleLogin, Title, TitleLogin, Wrapper } from "./style"; 
 import { MdEmail, MdLock } from 'react-icons/md'
+
+import { ILoginForm } from "./types";
 
 const schema = yup.object({
     email: yup.string().email('Esse email não é valido').required('Campo obrigatório.'),
@@ -25,12 +27,12 @@ const Login = () => {
         navigate('/cadastro')
      }
 
-     const { control, handleSubmit, formState: { errors }  } = useForm({
+     const { control, handleSubmit, formState: { errors }  } = useForm<ILoginForm>({
          resolver: yupResolver(schema),
          mode: 'onChange'
         });
         
-    const onSubmit = async (formData) => {
+    const onSubmit = async (formData: ILoginForm) => {
         try{
             const {data} = await api.get(`/users?email=${formData.email}&password=${formData.password}`);
             

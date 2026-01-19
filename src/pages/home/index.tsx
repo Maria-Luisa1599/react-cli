@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import bannerImage from "../../assets/banner.png";
 import Header from "../../components/Header";
-import { Container, TextContent, Title, TitleHighLight } from "./styles";
+import { Container, TextContent, Title, TitleHighLight } from "./style";
 
 const Home = () => {
     return (
