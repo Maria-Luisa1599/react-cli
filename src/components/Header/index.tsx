@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from "../../assets/logo-dio.png";
 import Button from '../Button';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { IHeader } from "./types"
 
 import { 
   Container,
@@ -15,10 +14,13 @@ import {
   Input,
   UserPicture
  } from './styles'
+import { useAuth } from '../../hooks/useAuth';
 
 
 
- const Header = ({autenticado}: IHeader) => {
+ const Header = () => {
+
+  const { user, handleSignOut } = useAuth();
    const navigate = useNavigate();
 
    const handleSubmitEntrar = () =>{
@@ -32,8 +34,10 @@ import {
     <Wrapper>
       <Container>
         <Row>
-          <img src={logo} alt="DIO Logo" />
-          {autenticado ? (
+          <Link to="/">
+            <img src={logo} alt="DIO Logo" />
+          </Link>
+          {user.id ? (
             <>        
             <BuscarInputContainer>
               <Input placeholder="Buscar..."/>
@@ -44,8 +48,11 @@ import {
           ) : null }
         </Row>
         <Row>
-          {autenticado ? (
-            <UserPicture src="https://avatars.githubusercontent.com/u/98129683?v=4"/>
+          {user.id ? (
+            <>
+              <UserPicture src="https://avatars.githubusercontent.com/u/98129683?v=4"/>
+              <button onClick={handleSignOut}>Sair</button>
+            </>
           ) : (
             <>
             <MenuRight href="#">Home</MenuRight>

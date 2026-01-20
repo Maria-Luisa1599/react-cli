@@ -15,6 +15,17 @@ export const Row = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    button{
+        width: 60px;
+        height: 25px;
+
+        border-radius: 4px;
+        border: none;
+        font-size: 14px;
+        background-color: #696969;
+        color: white;
+    }
 `
 export const Column = styled.div`
     display: flex;
@@ -69,6 +80,7 @@ export const UserPicture = styled.img`
     height: 32px;
     border-radius: 22px;
     border: 2px solid #FFFFFF;
+    margin-right: 15px;
 `
 
 export const Input = styled.input`

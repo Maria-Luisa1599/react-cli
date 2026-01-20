@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const InputContainer = styled.div`
     width: 100%;
     max-width: 275px;
-    height: 30px
-    border-bottom: 1px solid #FFFFFF;
-
+    height: 30px;
+    // border-bottom: 1px solid #FFFFFF;
+    
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -24,9 +24,17 @@ export const InputText = styled.input`
     border: 0;
     width: 100%;
     background-color: transparent;
-    color: #FFFFFF;    
+    color: #FFFFFF;
 
-    `;
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+        outline: none;
+    }
+`;
+
 
 export const ErrorText = styled.p`
     color: #FF2000;

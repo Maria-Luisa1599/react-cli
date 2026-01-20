@@ -4,15 +4,16 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
-import { api } from "../../services/api"
+// import { api } from "../../services/api"
 import { Input } from "../../components/Inputs";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 
-import { Column, Container, CriarText, EsqueciText, Row, SubtitleLogin, Title, TitleLogin, Wrapper } from "./style"; 
+import { Column, Container, CriarText, EsqueciText, Row, SubtitleLogin, Title, TitleLogin, Wrapper } from "./style";
 import { MdEmail, MdLock } from 'react-icons/md'
 
 import { ILoginForm } from "./types";
+import { useAuth } from "../../hooks/useAuth";
 
 const schema = yup.object({
     email: yup.string().email('Esse email não é valido').required('Campo obrigatório.'),
@@ -21,30 +22,20 @@ const schema = yup.object({
 
 
 const Login = () => {
-     const navigate = useNavigate();
+    const { handleLogin } = useAuth();
+    const navigate = useNavigate();
 
-     const handleCreateAccontSubmit = () => {
+    const handleCreateAccontSubmit = () => {
         navigate('/cadastro')
-     }
+    }
 
-     const { control, handleSubmit, formState: { errors }  } = useForm<ILoginForm>({
-         resolver: yupResolver(schema),
-         mode: 'onChange'
-        });
-        
+    const { control, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
+        resolver: yupResolver(schema),
+        mode: 'onChange'
+    });
+
     const onSubmit = async (formData: ILoginForm) => {
-        try{
-            const {data} = await api.get(`/users?email=${formData.email}&password=${formData.password}`);
-            
-            if(data.length && data[0].id){
-                navigate('/feed') 
-                return
-            }
-
-            alert('Usuário ou senha inválido')
-        }catch(e){
-            alert('Houve um erro')
-        }
+        handleLogin(formData);
     };
 
     console.log(errors)
@@ -57,17 +48,17 @@ const Login = () => {
                     <Title>
                         A plataforma para você aprender com experts, dominar as principais tecnologias e entrar mais rápido nas empresas mais desejadas.
                     </Title>
-                    
+
                 </Column>
                 <Column>
                     <Wrapper>
                         <TitleLogin>Faça seu cadastro</TitleLogin>
                         <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <Input name="email" control={control} errorMessage={errors?.email?.message} placeholder="E-mail" leftIcon={<MdEmail/>}/>
-                            <hr/>
-                            <Input name="password" errorMessage={errors?.password?.message} control={control} placeholder="Senha" type="password" leftIcon={<MdLock/>}/>
-                            <Button title="Entrar" variant="secondary"/>
+                            <Input name="email" control={control} errorMessage={errors?.email?.message} placeholder="E-mail" leftIcon={<MdEmail />} />
+                            <hr />
+                            <Input name="password" errorMessage={errors?.password?.message} control={control} placeholder="Senha" type="password" leftIcon={<MdLock />} />
+                            <Button title="Entrar" variant="secondary" />
                         </form>
                         <Row>
                             <EsqueciText>Esqueci minha senha</EsqueciText>
@@ -75,9 +66,8 @@ const Login = () => {
                         </Row>
                     </Wrapper>
                 </Column>
-            </Container>         
+            </Container>
         </>)
 }
 
 export { Login };
-      
